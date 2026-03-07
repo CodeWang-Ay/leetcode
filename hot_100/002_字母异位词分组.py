@@ -1,7 +1,9 @@
 # 从 typing 模块导入 List 类型
 from typing import List
+from collections import defaultdict
 
 class Solution:
+    # 方法1
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         res = []
         total_arrs = []
@@ -22,6 +24,15 @@ class Solution:
                 
         # print(total_arrs)
         return res
+    
+    # 方法2 (推荐解法)
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        str_map = defaultdict(list)
+        for cur_str in strs:
+            cur_key = "".join(sorted(cur_str))
+            str_map[cur_key].append(cur_str)
+        
+        return list(str_map.values())
 
 """
 题目: 49. 字母异位词分组
