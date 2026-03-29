@@ -1,7 +1,49 @@
-对于每个带有标准答案 $a^*$ 的问题 $q$，我们使用相同的大模型和提示模板，分别生成加入检索记忆（提示中包含 top‑k 记忆条目）的答案 $a_{\text{mem}}$，以及不使用任何记忆的答案 $a_{\text{no}}$。随后我们执行三项诊断探测。
-1. 探测1（检索相关性）：由大模型评判器判断每条检索到的记忆条目 $m_i$ 是否包含回答问题 $q$ 所需的相关信息；我们计算并报告检索精确率$@k = |\{m_i:relevant\}| / k$。
-2. 探测2（记忆利用率）：由大模型评判器将 $a_{\text{mem}}$ 和 $a_{\text{no}}$ 与标准答案 $a^*$ 进行对比，并将每个问题归类为：有益（记忆提升了答案）、有害（记忆降低了答案质量）、忽略（答案未发生变化）或中性（答案发生变化但正确性不受影响）。
-3. 探测3（错误分类）：针对错误答案，我们将失效情况分为三类：
-  - 检索失效：指系统在推理阶段未能提供足够信息来回答问题。这包括（i）相关信息存在于记忆库中但未被检索出来；（ii）存储的记忆本身不包含足以支撑回答的详细信息。我们将这两种情况都归为检索阶段失效，因为问题都出现在检索到生成的衔接环节；
-  - 利用失效【记忆利用实效】：指至少检索到一条相关记忆，但模型仍然生成错误答案，表明存在下游推理问题；
-  - 幻觉：指模型给出的答案与自身检索到的记忆内容直接矛盾，这类情况较为少见。
+from typing import Optional
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+# 打印链表
+def print_linked_list(head):
+    cur = head
+    res = []
+    while cur:
+        res.append(str(cur.val))
+        cur = cur.next
+    print("→".join(res))
+
+# 1. 尾插法构建单链表
+def create_single_link_by_tail(arr):
+    """
+    尾插法构建单链表
+    """
+    dummy = ListNode(0)                         # 虚拟头结点
+    tail_node = dummy
+    for cur_num in arr:
+        cur_node = ListNode(cur_num)            # 当前待插入的节点
+        tail_node.next = cur_node               # 进行插入
+        tail_node = tail_node.next              # 尾指针移动
+    return dummy.next
+
+# 2. 头插法构建单链表
+def create_single_link_by_head(arr):
+    """
+    头插法构建单链表  dummy 虚拟头节点
+    """
+    reverse_arr = arr[::-1]                     # 首先反转链表
+    dummy = ListNode(0)
+    for cur_num in reverse_arr:
+        cur_node = ListNode(cur_num)
+        cur_node.next = dummy.next
+        dummy.next = cur_node
+    return dummy.next
+
+if __name__ == "__main__":
+    intersectVal = 8
+    listA = [4,1,8,4,5]
+    headinsert_headA = create_single_link_by_tail(listA)
+    tailinsert_headA = create_single_link_by_head(listA)
+    print_linked_list(headinsert_headA)
+    print_linked_list(tailinsert_headA)

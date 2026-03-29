@@ -24,6 +24,13 @@ class Solution:
             head_ap = head_ap.next
         return None
 
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        p1, p2 = headA, headB
+        while p1 != p2:
+            p1 = p1.next if p1 else headB
+            p2 = p2.next if p2 else headA
+        return p1
+
     def get_link_len(self, head):
         link_len = 0
         temp = head
@@ -31,8 +38,6 @@ class Solution:
             link_len += 1
             temp = temp.next
         return link_len
-
-
 
 # 构建一个相交链表
 def create_public_link(listA, listB, skipA, skipB):
@@ -46,7 +51,7 @@ def create_public_link(listA, listB, skipA, skipB):
 
 # 创建一个单链表
 def create_single_link(nums):
-    """尾插法创建 单链表"""
+    """尾插法创建 返回头节点和尾节点"""
     tail = ListNode(0)
     pre_node = tail
     for num in nums:
@@ -56,18 +61,29 @@ def create_single_link(nums):
     return pre_node.next, tail
 
 # 遍历单链表
-def traverse_single_link(head):
-    temp = head
-    res_links = []
-    link_len = 0
-    while temp:
-        res_links.append(temp.val)
-        temp = temp.next
-        link_len += 1
-    print(f"遍历链表结果: {res_links}")    
-    return res_links, link_len
+def print_linked_list(head):
+    cur = head
+    res = []
+    while cur:
+        res.append(str(cur.val))
+        cur = cur.next
+    print(" → ".join(res))
 
-
+"""
+题目: 160. 相交链表
+链接: https://leetcode.cn/problems/intersection-of-two-linked-lists
+思路1 (推荐):
+    1. 构造一个获取链表长度的列表
+    2. 让长的那个链表先移动  len_a - len_b 位置，使得起点一样
+    同起点后每次判断当前元素是否相等, 相等则直接返回
+    否则返回为空
+思路2:
+    两个指针 A 走完自己路→走对方路；B 走完自己路→走对方路👉 最终总路程绝对相等：
+        路程 A = A 独有的一段 + 公共相交段 + B 独有的一段
+        路程 B = B 独有的一段 + 公共相交段 + A 独有的一段
+        a+b+c 完全相等 → 速度一样，必定同时间踩中交点
+    没有交点 → 两个指针最后会同时走到 None，循环结束，返回 None，完全没问题。
+"""
 if __name__ == "__main__":
     intersectVal = 8
     listA = [4,1,8,4,5]
@@ -78,8 +94,7 @@ if __name__ == "__main__":
     # headA = create_single_link(listA)
     # traverse_single_link(headA)
     headA, headB = create_public_link(listA, listB, skipA, skipB)
-    traverse_single_link(headA)
-    traverse_single_link(headB)
+    print_linked_list(headA)
+    print_linked_list(headB)
     interval_node =  solution.getIntersectionNode(headA, headB)
     print(f"node_val: {interval_node.val}")
-    pass
