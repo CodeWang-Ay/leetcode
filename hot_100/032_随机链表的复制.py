@@ -38,7 +38,23 @@ class Solution:
             cur_node = cur_node.next
             tail = tail.next
         return dummy.next
+    
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        if not head:
+            return None
+        
+        cur_node = head
+        node_map = {}
+        while cur_node:
+            node_map[cur_node] = Node(cur_node.val)
+            cur_node = cur_node.next
 
+        cur_node = head
+        while cur_node:
+            node_map[cur_node].next = node_map.get(cur_node.next)        # 这就是下一个节点的key
+            node_map[cur_node].random = node_map.get(cur_node.random)    # 下一个随机指针的key 可能是None
+            cur_node = cur_node.next
+        return node_map[head]
 
 def print_sinle_link(head):
     temp = head
@@ -77,7 +93,14 @@ def create_random_link_by_tail(arr):
 
 
 """
-
+题目: 138. 随机链表的复制
+链接: https://leetcode.cn/problems/copy-list-with-random-pointer
+思路:
+    思路. 利用hashmap, 然后通过二维数组构建单链表
+    再次遍历将随机指针赋值上
+思路
+    1. 遍历原链表，建立 原节点 → 新节点 的字典
+    2. 再遍历一次，把新节点的 next 和 random 通过字典对接上
 """
 if __name__ == "__main__":
     solution = Solution()

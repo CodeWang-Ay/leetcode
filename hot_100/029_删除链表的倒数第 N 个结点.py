@@ -27,6 +27,23 @@ class Solution:
             temp = temp.next
 
         return link_len
+    
+    # 推荐思路 快慢指针
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        dummy = ListNode(0)
+        dummy.next = head
+        slow = fast = dummy
+
+        for i in range(n + 1):
+            fast = fast.next 
+        
+        while fast:
+            slow = slow.next
+            fast = fast.next
+        slow.next = slow.next.next
+        return dummy.next
+
+        
 
 def print_sinle_link(head):
     temp = head
@@ -51,7 +68,16 @@ def create_single_link_by_tail(arr):
 
 
 """
-
+题目: 19. 删除链表的倒数第 N 个结点
+链接: https://leetcode.cn/problems/remove-nth-node-from-end-of-list
+思路:
+    1. 先建 dummy 虚拟头（防止删头节点特判）
+    2. 快指针先走 n+1 步
+    3. 快慢指针再同速往后走
+    4. 快走到末尾 null 时，慢指针刚好在「要删节点的前驱」
+    5. 直接 slow.next = slow.next.next 跳过节点
+为什么 n+1？
+要让慢指针停在前驱，才能删掉下一个。
 """
 if __name__ == "__main__":
     solution = Solution()

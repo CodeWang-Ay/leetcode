@@ -46,7 +46,12 @@ def create_single_link_by_tail(arr):
         node_list.append(tail_node)
 
     return dummy.next
-
+"""
+题目: 148. 排序链表
+链接: https://leetcode.cn/problems/sort-list/description
+思路:
+    思路. 先取数, 排序, 构造新的单链表(消耗空间)
+"""
 if __name__ == "__main__":
     arr = [4,2,1,3]
     head = create_single_link_by_tail(arr)

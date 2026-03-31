@@ -17,6 +17,16 @@ class Solution:
             temp = temp.next
         return False
         
+    # 思路1
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+            if slow == fast:
+                return True
+        return False
         
 
 def create_cycle_single_link(arr, pos):
@@ -60,8 +70,11 @@ def create_single_link_by_tail(arr):
 """
 题目: 141. 环形链表
 链接: https://leetcode.cn/problems/linked-list-cycle
-思路:
+思路1(推荐):
+    1. 快慢指针, 快2慢1一定会相遇
+思路2:
     1. 利用列表存储链表元素的值，判断列表中是否有重复元素
+
 """
 if __name__ == "__main__":
     solution = Solution()

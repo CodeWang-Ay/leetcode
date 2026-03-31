@@ -8,27 +8,19 @@ class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         dummy = ListNode(0)
         tail_node = dummy
-        templ1 = list1
-        templ2 = list2
-        while templ1 and templ2:
-            if templ1.val <= templ2.val:
-                tail_node.next = templ1
-                tail_node = tail_node.next
-                templ1 = templ1.next
+        l1 = list1
+        l2 = list2
+        while l1 and l2:
+            if l1.val <= l2.val:
+                tail_node.next = l1
+                l1 = l1.next
             else:
-                tail_node.next = templ2
-                tail_node = tail_node.next
-                templ2 = templ2.next
+                tail_node.next = l2
+                l2 = l2.next
 
-        while templ1:
-            tail_node.next = templ1
             tail_node = tail_node.next
-            templ1 = templ1.next
-        while templ2:
-            tail_node.next = templ2
-            tail_node = tail_node.next
-            templ2 = templ2.next
 
+        tail_node.next = l1 if l1 else l2
         return dummy.next
 
 def print_sinle_link(head):
@@ -54,7 +46,17 @@ def create_single_link_by_tail(arr):
 
 
 """
+题目: 21. 合并两个有序链表
+链接: https://leetcode.cn/problems/merge-two-sorted-lists/description
+思路:
+    1. 利用尾插法
+    建一个 dummy 虚拟头结点，用 cur 跟着拼链表
+    谁当前节点值小，就先接谁
+    剩下没拼完的链表，直接尾巴接上
+    tail.next = small_node
 
+    tail = tail
+    small_node = small_node.next
 """
 if __name__ == "__main__":
     solution = Solution()

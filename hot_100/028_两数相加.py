@@ -36,7 +36,27 @@ class Solution:
             temp = temp.next
         return res_num
 
+    # 思路2 推荐
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        """利用尾插法进行操作。 进位操作"""
+        dummy = ListNode(0)
+        tail_node = dummy
+        carry = 0           # 进位的标志
+        while l1 or l2 or carry:
+            l1_value = l1.val if l1 else 0
+            l2_value = l2.val if l2 else 0
 
+            total = l1_value + l2_value + carry
+            carry = total // 10                     # 是否有进位
+
+            tail_node.next = ListNode(total % 10)   # 先加入个位数
+            
+            tail_node = tail_node.next
+            if l1:
+                l1 = l1.next
+            if l2:
+                l2 = l2.next
+        return dummy.next
 
 def print_sinle_link(head):
     temp = head
@@ -64,8 +84,13 @@ def create_single_link_by_tail(arr):
 题目: 2. 两数相加
 链接: https://leetcode.cn/problems/add-two-numbers
 思路:
-    1. 首先将两个链表转化为数字进行相加
-    2. 通过相加后的数字依次对10进行取余数然后构建链表
+    1. 用 dummy 虚拟头节点 存结果链表 [尾插法]
+    2. 用 carry 进位 记录满十进一
+    3. 同时遍历两个链表：
+        逐位相加 = l1.val + l2.val + 进位
+        当前位：总和 % 10
+        更新进位：总和 // 10
+    4. 链表走完，最后进位不为 0，要多补一个节点
 """
 if __name__ == "__main__":
     solution = Solution()

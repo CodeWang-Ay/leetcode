@@ -9,11 +9,14 @@ class Solution:
     def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         dummy = ListNode(0)
         dummy.next = head
+
+
         pre_node = dummy
         lnode = head
         rnode = head
         for i in range(k-1):
             rnode = rnode.next
+
         while lnode and rnode:
             next_lnode = rnode.next
             next_rnode = next_lnode
@@ -24,15 +27,13 @@ class Solution:
                     next_rnode = None
 
             pre_node.next = rnode
-            # 反转链表
+            # 3. 断开 反转链表
             self.reverse_link(lnode, k)
             lnode.next = next_lnode
 
             pre_node = lnode
             lnode = next_lnode
             rnode = next_rnode
-
-
         return dummy.next
 
 
@@ -73,7 +74,15 @@ def create_single_link_by_tail(arr):
 
 
 """
-
+题目: 25. K 个一组翻转链表
+链接: https://leetcode.cn/problems/reverse-nodes-in-k-group
+思路:
+    1. 用 dummy 虚拟头（防止头节点变化）
+    2. 每次找到本组的起点 + 终点
+        不够 k 个 → 结束
+    3. 翻转这 k 个节点
+    4. 把翻转后的片段重新接回原链表
+    5. 移动指针，处理下一组
 """
 if __name__ == "__main__":
     solution = Solution()

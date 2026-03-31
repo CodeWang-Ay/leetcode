@@ -16,8 +16,23 @@ class Solution:
                 return temp             # 说明有环节点
             temp = temp.next
         return None
-        
-        
+    
+    # 思路1 推荐
+    def detectCycle(self, head: Optional[ListNode]) -> bool:
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+            if slow == fast:
+                p1 = head
+                p2 = slow
+                while p1 != p2:
+                    p1 = p1.next
+                    p2 = p2.next
+                return p1
+
+        return None
 
 def create_cycle_single_link(arr, pos):
     dummy = ListNode(0)
@@ -60,7 +75,12 @@ def create_single_link_by_tail(arr):
 """
 题目: 142. 环形链表 II
 链接: https://leetcode.cn/problems/linked-list-cycle-ii
-思路:
+思路1(推荐): 
+    1：快慢指针判断有没有环（同 141 题）
+    slow 走 1 步，fast 走 2 步，直到相遇；遇空则无环。
+    2：相遇后，一个指针从头、一个从相遇点，同速一步走，再次相遇 = 环入口
+
+思路2:
     1. 利用列表存储链表元素的值，判断列表中是否有重复元素
     直接返回第一个重复的元素
 """

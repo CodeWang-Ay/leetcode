@@ -76,7 +76,17 @@ def traverse_single_link(head):
     print(f"遍历链表结果: {res_links}")    
     return res_links, link_len
 
-
+"""
+题目: 206. 反转链表
+链接: https://leetcode.cn/problems/reverse-linked-list
+思路:
+    1. 初始化pre=None，current=head, next_node 由当前节点获得
+    2. 条件是current != null, 
+            next_node = current.next    # 保存下一个节点
+            current.next = preNode      # 当前节点指向前一个节点
+            preNode = current           # preNode节点正常移动
+            current = next_node         # current节点正常移动
+"""
 if __name__ == "__main__":
 
     listA = [1,2,3,4,5]
