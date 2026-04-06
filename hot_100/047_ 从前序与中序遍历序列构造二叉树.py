@@ -72,23 +72,16 @@ def build_binary_tree(nums:List[int]):
     return root
 
 """
-题目: 543. 二叉树的直径
-链接: https://leetcode.cn/problems/invert-binary-tree
+题目: 105. 从前序与中序遍历序列构造二叉树
+链接: https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal
 思路:
-    思路. (知识点还是二叉树的最大深度)
-    通过当前节点，判断当前节点中的左右节点的深度，那么经过当前节点的节点个数就是 L + R + 1
-    判断直径也就是路程就是节点减去1  self.ans -1
-    或者直径直接等于当前左右节点的深度之和 也是可以ac的
-    1.确定递归函数的参数和返回值：root
-    2.确定终止条件：            
-        如果 当前节点为空 那么直接返回0
-    3.确定单层递归的逻辑：      
-        左节点的深度 L
-        右节点的深度 R
-        经过当前节点的最长节点数 self.ans = max(self.ans, L + R + 1)
-        return max(L, R) + 1
-    depth(root)
-    retur self.ans -1 
+    思路. 
+    1.：如果数组大小为零的话,  说明是空节点了。
+    2.：如果不为空,  那么取前序数组第一个元素作为节点元素。
+    3.：找到前序数组第一个元素在中序数组的位置,  作为切割点
+    4.：切割中序数组,  切成中序左数组和中序右数组 （顺序别搞反了,  一定是先切中序数组）
+    5.：切割前序数组,  切成前序左数组和前序右数组
+    6.：递归处理左区间和右区间
 """
 
 if __name__ == "__main__":

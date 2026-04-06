@@ -83,20 +83,7 @@ def build_binary_tree(nums:List[int]):
 题目: 543. 二叉树的直径
 链接: https://leetcode.cn/problems/invert-binary-tree
 思路:
-    思路. (知识点还是二叉树的最大深度)
-    通过当前节点，判断当前节点中的左右节点的深度，那么经过当前节点的节点个数就是 L + R + 1
-    判断直径也就是路程就是节点减去1  self.ans -1
-    或者直径直接等于当前左右节点的深度之和 也是可以ac的
-    1.确定递归函数的参数和返回值：root
-    2.确定终止条件：            
-        如果 当前节点为空 那么直接返回0
-    3.确定单层递归的逻辑：      
-        左节点的深度 L
-        右节点的深度 R
-        经过当前节点的最长节点数 self.ans = max(self.ans, L + R + 1)
-        return max(L, R) + 1
-    depth(root)
-    retur self.ans -1 
+    1. 当前节点的为起点的最大路径和， 经过当前节点的最大和路径进行分工
 """
 
 if __name__ == "__main__":

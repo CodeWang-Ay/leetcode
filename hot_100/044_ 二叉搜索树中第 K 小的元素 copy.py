@@ -71,23 +71,12 @@ def build_binary_tree(nums:List[int]):
     return root
 
 """
-题目: 543. 二叉树的直径
-链接: https://leetcode.cn/problems/invert-binary-tree
+题目: 230. 二叉搜索树中第 K 小的元素
+链接: https://leetcode.cn/problems/kth-smallest-element-in-a-bst
 思路:
-    思路. (知识点还是二叉树的最大深度)
-    通过当前节点，判断当前节点中的左右节点的深度，那么经过当前节点的节点个数就是 L + R + 1
-    判断直径也就是路程就是节点减去1  self.ans -1
-    或者直径直接等于当前左右节点的深度之和 也是可以ac的
-    1.确定递归函数的参数和返回值：root
-    2.确定终止条件：            
-        如果 当前节点为空 那么直接返回0
-    3.确定单层递归的逻辑：      
-        左节点的深度 L
-        右节点的深度 R
-        经过当前节点的最长节点数 self.ans = max(self.ans, L + R + 1)
-        return max(L, R) + 1
-    depth(root)
-    retur self.ans -1 
+    思路. 
+    首先利用中序遍历得到遍历结果, 返回遍历结果后的第k-1元素
+    可能存在更优解
 """
 
 if __name__ == "__main__":

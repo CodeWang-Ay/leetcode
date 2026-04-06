@@ -71,23 +71,19 @@ def build_binary_tree(nums:List[int]):
     return root
 
 """
-题目: 543. 二叉树的直径
-链接: https://leetcode.cn/problems/invert-binary-tree
+题目: 108. 将有序数组转换为二叉搜索树
+链接: https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree
 思路:
-    思路. (知识点还是二叉树的最大深度)
-    通过当前节点，判断当前节点中的左右节点的深度，那么经过当前节点的节点个数就是 L + R + 1
-    判断直径也就是路程就是节点减去1  self.ans -1
-    或者直径直接等于当前左右节点的深度之和 也是可以ac的
-    1.确定递归函数的参数和返回值：root
+    思路. 
+    利用二分查找，一直选中间节点作为根节点就行了
+    1.确定递归函数的参数和返回值：nums, l, r
     2.确定终止条件：            
-        如果 当前节点为空 那么直接返回0
+        如果 l > r 直接返回None
     3.确定单层递归的逻辑：      
-        左节点的深度 L
-        右节点的深度 R
-        经过当前节点的最长节点数 self.ans = max(self.ans, L + R + 1)
-        return max(L, R) + 1
-    depth(root)
-    retur self.ans -1 
+        得到当前数组的中间节点作为根节点
+        根节点的左指针指向 左半部分的中间节点
+        根节点的右指针指向 右半部分的中间节点 
+        返回根节点
 """
 
 if __name__ == "__main__":

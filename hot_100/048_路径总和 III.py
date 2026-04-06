@@ -83,23 +83,23 @@ def build_binary_tree(nums:List[int]):
     return root
 
 """
-题目: 543. 二叉树的直径
-链接: https://leetcode.cn/problems/invert-binary-tree
+题目: 437. 路径总和 III
+链接: https://leetcode.cn/problems/path-sum-iii
 思路:
-    思路. (知识点还是二叉树的最大深度)
-    通过当前节点，判断当前节点中的左右节点的深度，那么经过当前节点的节点个数就是 L + R + 1
-    判断直径也就是路程就是节点减去1  self.ans -1
-    或者直径直接等于当前左右节点的深度之和 也是可以ac的
-    1.确定递归函数的参数和返回值：root
-    2.确定终止条件：            
-        如果 当前节点为空 那么直接返回0
-    3.确定单层递归的逻辑：      
-        左节点的深度 L
-        右节点的深度 R
-        经过当前节点的最长节点数 self.ans = max(self.ans, L + R + 1)
-        return max(L, R) + 1
-    depth(root)
-    retur self.ans -1 
+    思路. 二叉树遍历 + 二叉树回溯
+    二叉树遍历: 访问每一个节点 node, 检测以当前节点为起始节点且向下延深的路径有多少种。
+
+    二叉树回溯: 利用回溯定义一个方法判断以当前节点为根节点只能向下的和为targetSum的路径有多少条，
+        逻辑不是一直加， 而是一直减去判断当前targetsum是否等于root.val
+        res 何为taretsum的个数
+        1.确定递归函数的参数和返回值: root， targetSum,   和为targetsum的个数
+        2.确定终止条件：            
+            root 为空 返回0
+        3.确定单层递归的逻辑:
+            当前节点的是不是等于targetsum, 如果是res += 1
+            遍历左节点targetsum - root.val
+            遍历右节点targetsum - root.val
+            返回res
 """
 
 if __name__ == "__main__":
